@@ -1,4 +1,4 @@
-from bandit import *
+from bandit import Bandit
 import pandas as pd
 import statsmodels.formula.api as sm
 
