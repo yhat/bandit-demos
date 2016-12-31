@@ -7,6 +7,8 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
 bandit.Metadata(metadata)
+from time import gmtime, strftime
+print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(metadata)
 
 df.to_csv('/job/output-files/dataframe.csv')
