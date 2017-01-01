@@ -12,11 +12,12 @@ bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
 
-for x in range(1000):
-    for y in range(1000):
+for x in range(100):
+    for y in range(100):
         bandit.report("a", x, y)
 
 from time import gmtime, strftime
+
 print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(metadata)
 
