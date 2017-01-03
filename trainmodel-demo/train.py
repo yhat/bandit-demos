@@ -18,9 +18,10 @@ bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.1
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
+email = Email()
 
-bandit.email.body("Testing")
-bandit.email.attachment('/job/output-files/dataframe.csv')
+email.body("Testing")
+email.attachment('/job/output-files/dataframe.csv')
 
 for x in range(10):
     for y in range(10):
