@@ -1,6 +1,8 @@
 from bandit import Bandit
 import pandas as pd
 import numpy as np
+import time
+from time import gmtime, strftime
 import statsmodels.formula.api as sm
 
 df = pd.DataFrame({"A": [10,20,30,40,50], "B": [20, 30, 10, 40, 50], "C": [32, 234, 23, 23, 42523]})
@@ -22,8 +24,6 @@ for x in range(10):
         for tag in ["a", "b", "c", "d", "e", "f", "g"]:
             bandit.report(tag, y, np.random.rand())
         time.sleep(0.1)
-
-from time import gmtime, strftime
 
 print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(metadata)
