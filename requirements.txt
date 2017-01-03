@@ -1,4 +1,4 @@
 bandit-cli==0.0.15
-random
+numpy==1.11.2
 pandas==0.19.1
 statsmodels==0.6.1
