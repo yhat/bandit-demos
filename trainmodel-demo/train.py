@@ -5,7 +5,11 @@ import time
 from time import gmtime, strftime
 import statsmodels.formula.api as sm
 
-df = pd.DataFrame({"A": [10,20,30,40,50], "B": [20, 30, 10, 40, 50], "C": [32, 234, 23, 23, 42523]})
+df = pd.DataFrame({ \
+    "A": np.random.normal(100,10,5).tolist(), \
+    "B": np.random.normal(50,5,5).tolist(), \
+    "C": np.random.normal(1000,100,5).tolist() \
+})
 result = sm.ols(formula="A ~ B + C", data=df).fit()
 
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
@@ -14,6 +18,9 @@ bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.1
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
+
+bandit.email.body("Testing")
+bandit.email.attachment('/job/output-files/dataframe.csv')
 
 for x in range(10):
     for y in range(10):
