@@ -17,6 +17,7 @@ metadata = {'R2': result.rsquared, 'AIC': result.aic}
 bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
+bandit.metadata['value1'] = 2
 
 for x in range(10):
     for y in range(10):
