@@ -12,6 +12,3 @@ while (t<15):
     time.sleep(0.1)
     print t
     t=t+1
-
-print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-print(metadata)
