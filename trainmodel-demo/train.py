@@ -2,7 +2,6 @@ from bandit import Bandit
 import pandas as pd
 import numpy as np
 import time
-from time import gmtime, strftime
 import statsmodels.formula.api as sm
 
 df = pd.DataFrame({ \
@@ -15,26 +14,19 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
 bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
+
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
+df.to_csv('/job/output-files/dataframe.csv')
+
 # email = Email()
 #
-# email.body("Testing")
+# email.body(result.summary())
 # email.attachment('/job/output-files/dataframe.csv')
 
 for x in range(10):
     for y in range(10):
-        bandit.report('a', x, np.random.rand())
+        for tag in ["a", "b", "c", "d", "e", "f", "g"]:
+            bandit.report(tag, y, np.log(y)+10+np.random.rand())
         time.sleep(0.1)
-
-# for x in range(10):
-#     for y in range(10):
-#         for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-#             bandit.report(tag, y, np.random.rand())
-#         time.sleep(0.1)
-
-print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-print(metadata)
-
-df.to_csv('/job/output-files/dataframe.csv')
