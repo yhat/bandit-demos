@@ -34,7 +34,8 @@ print(metadata)
 
 df.to_csv('/job/output-files/dataframe.csv')
 
-email = Email()
+bandit.email.body("HI")
+print(bandit.email)
 
-email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-email.attachment('/job/output-files/dataframe.csv')
+# email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+# email.attachment('/job/output-files/dataframe.csv')
