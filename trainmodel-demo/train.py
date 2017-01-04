@@ -25,7 +25,7 @@ bandit.metadata.AIC = result.aic
 
 for x in range(10):
     for y in range(10):
-        bandit.report('a', np.random.rand())
+        bandit.report('a', x, np.random.rand())
         time.sleep(0.1)
 
 # for x in range(10):
