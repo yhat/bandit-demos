@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 
-bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
+bandit = Bandit()
 
 t=0
 while (t<15):

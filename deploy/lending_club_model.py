@@ -1,9 +1,10 @@
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
 import numpy as np
+import os
 
-# cd ~/github/yhat/demo-lending-club/model
-df = pd.read_csv("./LoanStats3a.csv", skiprows=1)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+df = pd.read_csv(os.path.join(dir_path, "LoanStats3a.csv"), skiprows=1)
 df_head = df.head()
 
 def is_poor_coverage(row):
