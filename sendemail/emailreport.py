@@ -1,4 +1,4 @@
-from bandit import Bandit
+from bandit import Bandit, job
 import pandas as pd
 import numpy as np
 import time
@@ -15,6 +15,7 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
 bandit = Bandit()
+
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 bandit.metadata['value1'] = 2
@@ -34,8 +35,9 @@ print(metadata)
 
 df.to_csv('/job/output-files/dataframe.csv')
 
-bandit.email.body("HI")
-print(bandit.email)
-
+email = job.Email(["colin@yhathq.com", "greg@yhathq.com"])
+email.subject("HI")
 email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-email.attachment('/job/output-files/dataframe.csv')
+print(email)
+# there are no attachments
+# bandit.email.attachment('/job/output-files/dataframe.csv')
