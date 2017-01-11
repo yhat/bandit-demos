@@ -23,6 +23,7 @@ bad_indicators = [
     "Default",
     "Charged Off"
 ]
+
 df_term['is_rent'] = df_term.home_ownership=="RENT"
 df_term['is_bad'] = df_term.loan_status.apply(lambda x: x in bad_indicators)
 features = ['last_fico_range_low', 'last_fico_range_high', 'is_rent']
@@ -42,7 +43,6 @@ log_probs = glm.predict_log_proba(df_term[features])[:,1]
 scores = calculate_score(log_probs)
 # qplot(scores)
 # qplot(probs, scores)
-
 
 
 from yhat import Yhat, YhatModel
@@ -79,6 +79,5 @@ test = {
 
 LoanModel().execute(test)
 
-yh = Yhat("colin", "d325fc5bcb83fc197ee01edb58b4b396",
-          "https://sandbox.c.yhat.com/")
+yh = Yhat("colin", "d325fc5bcb83fc197ee01edb58b4b396", "https://sandbox.c.yhat.com/")
 yh.deploy("LendingClub", LoanModel, globals(), True)
