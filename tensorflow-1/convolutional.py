@@ -304,7 +304,7 @@ def main(_):
             eval_in_batches(validation_data, sess), validation_labels))
 
         print('datetype', type(l))
-        bandit.report('Minibatch Loss', step, l)
+        bandit.report('Minibatch Loss', step, float(l))
 
         sys.stdout.flush()
     # Finally print the result!
