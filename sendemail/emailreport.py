@@ -22,12 +22,12 @@ bandit.metadata['value1'] = 2
 
 for x in range(10):
     for y in range(10):
-        bandit.report('a', x, y)
+        bandit.report('a', y)
 
 for x in range(10):
     for y in range(10):
         for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-            bandit.report(tag, y, np.random.rand())
+            bandit.report(tag, np.random.rand())
         time.sleep(0.1)
 
 print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
