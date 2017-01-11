@@ -1,5 +1,7 @@
-bandit-cli==0.0.18
-numpy==1.11.2
+bandit-cli
+numpy==1.11.3
 pandas==0.19.1
 statsmodels==0.6.1
 scikit-learn
+tensorflow==0.12
+six==1.10.0
