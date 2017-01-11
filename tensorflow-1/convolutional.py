@@ -33,7 +33,10 @@ import numpy
 from six.moves import urllib
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
+
 from bandit import Bandit
+
+bandit = Bandit()
 
 SOURCE_URL = 'http://yann.lecun.com/exdb/mnist/'
 WORK_DIRECTORY = 'data'
@@ -51,7 +54,6 @@ EVAL_FREQUENCY = 100  # Number of steps between evaluations.
 
 FLAGS = None
 
-bandit = Bandit()
 
 def data_type():
   """Return the type of the activations, weights, and placeholder variables."""
@@ -314,13 +316,10 @@ def main(_):
         print('Minibatch error: %.1f%%' % error_rate(predictions, batch_labels))
         print('Validation error: %.1f%%' % error_rate(
             eval_in_batches(validation_data, sess), validation_labels))
-        sys.stdout.flush()
 
         bandit.report('Minibatch Loss', l, step)
 
-
-
-
+        sys.stdout.flush()
     # Finally print the result!
     test_error = error_rate(eval_in_batches(test_data, sess), test_labels)
     print('Test error: %.1f%%' % test_error)
