@@ -35,9 +35,11 @@ print(metadata)
 
 df.to_csv('/job/output-files/dataframe.csv')
 
-email = job.Email(["colin@yhathq.com", "greg@yhathq.com"])
+body = '<h2>h2 header</h2><br><ul><li>item 1</li><li>item 2</li></ul>'
+email = job.Email(["colin@yhathq.com"])
 email.subject("HI")
-email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+email.body(strftime(body)
+# email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(email)
 # there are no attachments
 # bandit.email.attachment('/job/output-files/dataframe.csv')
