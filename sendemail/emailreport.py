@@ -15,27 +15,16 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
 bandit = Bandit()
-
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 bandit.metadata['value1'] = 2
-
-for x in range(10):
-    for y in range(10):
-        bandit.report('a', y)
-
-for x in range(10):
-    for y in range(10):
-        for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-            bandit.report(tag, np.random.rand())
-        time.sleep(0.1)
 
 print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(metadata)
 
 df.to_csv('/job/output-files/dataframe.csv')
 
-body = '<h2>h2 header</h2><br><ul><li>item 1</li><li>item 2</li></ul>'
+body = 'This is an email body'
 email = job.Email(["colin@yhathq.com"])
 email.subject("HI")
 email.body(body)
