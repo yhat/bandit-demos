@@ -38,7 +38,7 @@ df.to_csv('/job/output-files/dataframe.csv')
 body = '<h2>h2 header</h2><br><ul><li>item 1</li><li>item 2</li></ul>'
 email = job.Email(["colin@yhathq.com"])
 email.subject("HI")
-email.body(strftime(body)
+email.body(body)
 # email.body(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 print(email)
 # there are no attachments
