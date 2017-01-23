@@ -8,7 +8,7 @@ bandit = Bandit()
 t=0
 while (t<15):
     for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-        bandit.report(tag, t, np.random.rand())
+        bandit.report(tag, np.random.rand())
     time.sleep(0.1)
     print t
     t=t+1
