@@ -25,8 +25,12 @@ df.to_csv('/job/output-files/dataframe.csv')
 # email.body(result.summary())
 # email.attachment('/job/output-files/dataframe.csv')
 
+bandit.get_job_results()
+
+bandit.get_job_results('bandit-demos', 'Tensorflow')
+
 for x in range(10):
     for y in range(10):
         for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-            bandit.report(tag, y, np.log((10/(y+1)*10)) + np.random.rand())
+            bandit.report(tag, np.log((10/(y+1)*10)) + np.random.rand())
         time.sleep(0.1)
