@@ -3,6 +3,10 @@ import pandas as pd
 import numpy as np
 import os
 
+from bandit import Bandit
+
+bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 df = pd.read_csv(os.path.join(dir_path, "LoanStats3a.csv"), skiprows=1)
 df_head = df.head()
@@ -29,6 +33,10 @@ df_term['is_bad'] = df_term.loan_status.apply(lambda x: x in bad_indicators)
 features = ['last_fico_range_low', 'last_fico_range_high', 'is_rent']
 glm = LogisticRegression()
 glm.fit(df_term[features], df_term.is_bad)
+score = glm.score(df_term[features], df_term.is_bad)
+
+bandit.metadata.fit = score
+bandit.metadata.rows = df_term.is_bad.shape[0]
 
 glm.predict_log_proba(df_term[features].head())
 
@@ -48,6 +56,7 @@ scores = calculate_score(log_probs)
 from yhat import Yhat, YhatModel
 
 class LoanModel(YhatModel):
+    REQUREMENTS = ['numpy==1.11.2', 'scikit-learn==0.18.1', 'pandas==0.19.1']
     def execute(self, data):
         data['is_rent'] = data['home_ownership']=="RENT"
         data = {k: [v] for k,v in data.items()}
