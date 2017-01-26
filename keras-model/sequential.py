@@ -2,6 +2,7 @@
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import Callback, LambdaCallback
+from __future__ import print_function
 import numpy
 import os
 
@@ -15,6 +16,7 @@ numpy.random.seed(seed)
 
 # load pima indians dataset
 dir_path = os.path.dirname(os.path.realpath(__file__))
+# dataset = numpy.loadtxt("pima-indians-diabetes.csv", delimiter=",")
 dataset = numpy.loadtxt(os.path.join(dir_path, "pima-indians-diabetes.csv"), delimiter=",")
 
 # split into input (X) and output (Y) variables
@@ -32,6 +34,7 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 
 # Setup our loss curves
 plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: bandit.report('loss', float((logs['loss']))))
+# plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: print(type(float(logs['loss']))))
 
 # setup our history
 class LossHistory(Callback):
@@ -47,9 +50,6 @@ history = LossHistory()
 model.fit(X, Y, nb_epoch=200, batch_size=10,  verbose=2, callbacks=[history, plot_loss_callback])
 
 bandit.metadata.loss = round(history.losses[-1].tolist(),5)
-# calculate predictions
-predictions = model.predict(X)
 
-# round predictions
-rounded = [round(x[0]) for x in predictions]
-print(rounded)
+
+
