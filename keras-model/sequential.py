@@ -4,6 +4,8 @@ from keras.layers import Dense
 from keras.callbacks import Callback, LambdaCallback
 import numpy
 
+from bandit import Bandit
+
 bandit = Bandit()
 
 # fix random seed for reproducibility
