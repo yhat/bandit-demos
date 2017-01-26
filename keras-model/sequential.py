@@ -1,14 +1,15 @@
-# Create first network with Keras
+from __future__ import print_function
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import Callback, LambdaCallback
-from __future__ import print_function
 import numpy
 import os
 
 from bandit import Bandit
 
-bandit = Bandit()
+bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
+
+# bandit = Bandit()
 
 # fix random seed for reproducibility
 seed = 7
@@ -33,7 +34,12 @@ model.add(Dense(1, init='uniform', activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Setup our loss curves
-plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: bandit.report('loss', float((logs['loss']))))
+# plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: bandit.report('loss', float((logs['loss']))))
+class BanditLogs(Callback):
+    def on_epoch_end(self, batch, logs={}):
+        bandit.report('loss', float(logs['loss']))
+        # print(type(logs['loss']))
+
 # plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: print(type(float(logs['loss']))))
 
 # setup our history
@@ -44,12 +50,10 @@ class LossHistory(Callback):
     def on_batch_end(self, batch, logs={}):
         self.losses.append(logs.get('loss'))
 
+banditlogs = BanditLogs()
 history = LossHistory()
 
 # Fit the model
-model.fit(X, Y, nb_epoch=200, batch_size=10,  verbose=2, callbacks=[history, plot_loss_callback])
+model.fit(X, Y, nb_epoch=200, batch_size=10,  verbose=0, callbacks=[history, banditlogs])
 
 bandit.metadata.loss = round(history.losses[-1].tolist(),5)
-
-
-
