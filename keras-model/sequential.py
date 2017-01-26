@@ -3,6 +3,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import Callback, LambdaCallback
 import numpy
+import os
 
 from bandit import Bandit
 
@@ -13,7 +14,8 @@ seed = 7
 numpy.random.seed(seed)
 
 # load pima indians dataset
-dataset = numpy.loadtxt("pima-indians-diabetes.csv", delimiter=",")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+dataset = numpy.loadtxt(os.path.join(dir_path, "pima-indians-diabetes.csv"), delimiter=",")
 
 # split into input (X) and output (Y) variables
 X = dataset[:,0:8]
@@ -51,7 +53,3 @@ predictions = model.predict(X)
 # round predictions
 rounded = [round(x[0]) for x in predictions]
 print(rounded)
-
-
-
-
