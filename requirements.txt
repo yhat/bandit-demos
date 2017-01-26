@@ -6,3 +6,4 @@ scikit-learn
 tensorflow==0.12
 six==1.10.0
 requests==2.12.4
+keras==1.2.1
