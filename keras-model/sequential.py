@@ -38,7 +38,7 @@ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy']
 class BanditLogs(Callback):
     def on_epoch_end(self, batch, logs={}):
         print(logs)
-        bandit.report('loss', float(logs['loss']))
+        # bandit.report('loss', float(logs['loss']))
         # print(type(logs['loss']))
 
 # plot_loss_callback = LambdaCallback(on_epoch_end=lambda epoch, logs: print(type(float(logs['loss']))))
