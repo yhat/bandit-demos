@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import time
 import statsmodels.formula.api as sm
+import matplotlib
 import seaborn as sns
 
 
@@ -32,8 +33,10 @@ for x in range(10):
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
-plt = sns.distplot(df.A)
-plt.figure.savefig('/job/output-files/dist.png')
+matplotlib.use('Agg')
+
+chart = sns.distplot(df.A)
+chart.figure.savefig('/job/output-files/dist.png')
 
 # save
 df.head().to_csv('/job/output-files/datasample.csv')
