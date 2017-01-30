@@ -1,8 +1,11 @@
-from bandit import Bandit
+from bandit import *
+import datetime
 import pandas as pd
 import numpy as np
 import time
 import statsmodels.formula.api as sm
+import seaborn as sns
+
 
 df = pd.DataFrame({ \
     "A": np.random.normal(100,10,50).tolist(), \
@@ -13,25 +16,43 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
+with open("model_stats.txt", "w") as text_file:
+    model_summary = result.summary()
+    text_file.write(model_summary)
+
 # bandit = Bandit()
 bandit = Bandit('colin', 'c4548110-cc4b-11e6-a5c5-0242ac110003','http://54.201.192.120/')
-# 
-# for x in range(10):
-#     for y in range(10):
-#         # for tag in ["a", "b", "c", "d", "e", "f", "g"]:
-#         # bandit.report('tag', float(np.log((10/(y+1)*10)) + np.random.rand()))
-#     time.sleep(0.1)
+#
+for x in range(10):
+    for y in range(10):
+        bandit.report('tag', float(np.log((10/(y+1)*10)) + np.random.rand()))
+        time.sleep(0.1)
 
 
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
 
-# df.to_csv('/job/output-files/dataframe.csv')
+plt = sns.distplot(df.A)
+plt.figure.savefig('/job/output-files/dist.png')
 
-# email = Email()
-#
-# email.body(result.summary())
-# email.attachment('/job/output-files/dataframe.csv')
+# save
+df.head().to_csv('/job/output-files/datasample.csv')
 
-# bandit.get_job_results()
-# bandit.get_job_results('bandit-demos', 'Tensorflow')
+today = datetime.date.today().strftime('%Y_%m_%d')
+
+email = Email()
+email.subject = '%s model results' % today
+
+body = '''
+Below is the result of the successful nightly model training script
+
+Model Stats: %s
+- Model:
+- Adj. R2:
+''' % result.model.formula, result.rsquared_adj
+
+email.body = body
+email.add_attachment('/job/output-files/datasample.csv')
+email.add_attachment('/job/output-files/model_stats.txt')
+email.add_attachment('/job/output-files/dist.png')
+email.send('colin@yhathq.com')
