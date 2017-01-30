@@ -5,6 +5,7 @@ import numpy as np
 import time
 import statsmodels.formula.api as sm
 import matplotlib
+matplotlib.use('Agg')
 import seaborn as sns
 
 
@@ -32,8 +33,6 @@ for x in range(10):
 
 bandit.metadata.R2 = result.rsquared
 bandit.metadata.AIC = result.aic
-
-matplotlib.use('Agg')
 
 chart = sns.distplot(df.A)
 chart.figure.savefig('/job/output-files/dist.png')
