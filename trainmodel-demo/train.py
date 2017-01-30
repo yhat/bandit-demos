@@ -8,8 +8,6 @@ import matplotlib
 matplotlib.use('Agg')
 import seaborn as sns
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
 df = pd.DataFrame({ \
     "A": np.random.normal(100,10,50).tolist(), \
     "B": np.random.normal(50,5,50).tolist(), \
