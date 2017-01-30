@@ -17,7 +17,7 @@ result = sm.ols(formula="A ~ B + C", data=df).fit()
 metadata = {'R2': result.rsquared, 'AIC': result.aic}
 
 with open("model_stats.txt", "w") as text_file:
-    model_summary = result.summary()
+    model_summary = str(result.summary())
     text_file.write(model_summary)
 
 # bandit = Bandit()
